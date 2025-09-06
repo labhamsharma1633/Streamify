@@ -63,3 +63,4 @@ export async function getStreamToken() {
   const response = await axiosInstance.get("/chat/token");
   return response.data;
 }
+export const BASE_URL = "https://streamify-97zt.onrender.com"; // backend live URL
