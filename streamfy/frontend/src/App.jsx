@@ -14,6 +14,7 @@ import PageLoader from "./components/PageLoader.jsx";
 import useAuthUser from "./hooks/useAuthUser.js";
 import Layout from "./components/Layout.jsx";
 import { useThemeStore } from "./store/useThemeStore.js";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 
 const App = () => {
   const { isLoading, authUser } = useAuthUser();
@@ -101,6 +102,7 @@ const App = () => {
             )
           }
         />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       </Routes>
 
       <Toaster />

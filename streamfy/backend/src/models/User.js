@@ -11,6 +11,8 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+      lowercase:true,
+      trim:true
     },
     password: {
       type: String,
@@ -46,7 +48,14 @@ const userSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },
+
     ],
+    resetPasswordToken:{
+      type:String,
+    },
+    resetPasswordExpire:{
+      type:Date,
+    },
   },
   { timestamps: true }
 );
