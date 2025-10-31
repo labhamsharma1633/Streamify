@@ -10,26 +10,24 @@ import userRoutes from "./routes/user.route.js";
 import chatRoutes from "./routes/chat.route.js";
 import { connectDB } from "./lib/db.js";
 
-// Get __dirname in ES module
+// __dirname in ES module
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Load .env explicitly from backend root
+// Load .env
 dotenv.config({ path: path.join(__dirname, "../.env") });
 
-// Check loaded env vars
 console.log("PORT:", process.env.PORT);
 console.log("MONGO_URL:", process.env.MONGO_URL ? "Loaded ✅" : "Missing ❌");
 console.log("STREAM_API_KEY:", process.env.STREAM_API_KEY ? "Loaded ✅" : "Missing ❌");
 console.log("STREAM_API_SECRET:", process.env.STREAM_API_SECRET ? "Loaded ✅" : "Missing ❌");
 
 const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: ["http://localhost:5173",
-    "https://streamify-1-r2pt.onrender.com"],
+    origin: ["http://localhost:5173", "http://localhost:5174"],
     credentials: true,
   })
 );
@@ -41,20 +39,25 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/chat", chatRoutes);
 
-if (!process.env.NODE_ENV === "production") {
+// Serve frontend only in production
+if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
-
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
   });
 }
 
-// Connect to MongoDB first, then start server
+// Connect to DB and start server
 const startServer = async () => {
-  await connectDB();
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-  });
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log(`✅ Server running on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error("❌ Failed to start server:", err.message);
+    process.exit(1);
+  }
 };
 
 startServer();

@@ -212,3 +212,11 @@ export async function forgotPassword(req, res) {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 }
+export const resetPassword = async (req, res) => {
+  try {
+    // Your reset password logic here
+    res.status(200).json({ message: "Password reset not implemented yet" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
