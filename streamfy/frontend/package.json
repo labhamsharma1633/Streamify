@@ -4,11 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-  "install": "npm install --prefix backend && npm install --prefix frontend",
-  "build": "npm run build --prefix frontend",
-  "start": "node backend/src/server.js"
-},
-
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
   "dependencies": {
     "@stream-io/video-react-sdk": "^1.14.4",
     "@tanstack/react-query": "^5.74.4",
@@ -20,6 +19,7 @@
     "react-router": "^7.5.1",
     "stream-chat": "^8.60.0",
     "stream-chat-react": "^12.14.0",
+    "streamify": "file:..",
     "zustand": "^5.0.3"
   },
   "devDependencies": {

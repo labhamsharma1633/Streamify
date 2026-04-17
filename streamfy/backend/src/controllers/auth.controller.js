@@ -28,7 +28,7 @@ export async function signup(req, res) {
     }
 
     const idx = Math.floor(Math.random() * 100) + 1;
-    const randomAvatar = `https://avatar.iran.liara.run/public/${idx}.png`;
+    const randomAvatar = `https://ui-avatars.com/api/?name=${fullName}`;
 
     const newUser = await User.create({
       email,
